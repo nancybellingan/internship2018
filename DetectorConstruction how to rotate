@@ -1,0 +1,37 @@
+Required:
+
+#include "G4RotationMatrix.hh"
+#include "G4Transform3D.hh"
+#include "G4PVPlacement.hh"
+#include "G4VisAttributes.hh"
+#include "G4PhysicalConstants.hh"
+#include "G4SDManager.hh"
+
+// this is only a rotation of 90 degree around the y axis
+G4double phi = 0;
+  G4RotationMatrix rotm  = G4RotationMatrix();
+  rotm.rotateY(90*deg); //angle rotation around y axis (horizontal rotation, same horizontal plane, 
+  rotm.rotateZ(phi);
+  G4ThreeVector uz = G4ThreeVector(std::cos(phi),  std::sin(phi),0.); //direction
+  G4ThreeVector position = uz; //required for the magnitude a scalar
+  G4Transform3D transform = G4Transform3D(rotm,position);
+
+  new G4PVPlacement(transform,                       //rotation and position in the same value given by transform matrix
+                    logicShape1,             //its logical volume
+                    "Shape1",                //its name
+                    logicEnv,                //its mother  volume
+                    false,                   //no boolean operation
+                    0,                       //copy number
+                    checkOverlaps); //overlaps checking 
+                    
+                    
+// this is only a rotation of 90 degree around the z axis      
+
+G4double phi = 90;  // angle for vertical rotation, around z axis
+  G4double alpha = 0; //angle for horizontal rotation, around y axis
+  G4RotationMatrix rotm  = G4RotationMatrix();
+  rotm.rotateY(alpha*deg);
+  rotm.rotateZ(phi*deg);
+  G4ThreeVector uz = G4ThreeVector(std::cos(phi),  std::sin(phi),0.);
+  G4ThreeVector position = uz;
+  G4Transform3D transform = G4Transform3D(rotm,position);
