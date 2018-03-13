@@ -1,0 +1,20 @@
+//shape example thoroidal
+
+G4Material* shape4_mat = nist->FindOrBuildMaterial("G4_TEFLON");
+G4ThreeVector pos4 = G4ThreeVector(0, 0, 0);
+
+// (name, inner radius, external radius, radius of the torus, starting angle ,delta angle)
+
+G4Torus* solidShape4 = new G4Torus("torus", 0.8*cm, 1*cm, 9*cm, 0, 360*deg);
+G4LogicalVolume* logicShape4 = new G4LogicalVolume(solidShape4, shape4_mat, "torus");
+
+G4double phi1 = 90;  // angle for vertical rotation, around z axis
+G4double alpha1 = 0; //angle for horizontal rotation, around y axis
+G4RotationMatrix rotm1  = G4RotationMatrix();
+rotm1.rotateY(alpha1*deg);
+rotm1.rotateX(phi1*deg);
+G4ThreeVector uz1 = G4ThreeVector(std::cos(phi1),  std::sin(phi1),0.);
+G4ThreeVector position1 = uz1;
+G4Transform3D transform1 = G4Transform3D(rotm1,position1);
+
+new G4PVPlacement(transform1, logicShape4, "Torus", logicEnv, false, 0, checkOverlaps);
