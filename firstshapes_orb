@@ -1,0 +1,16 @@
+//Shape example orb
+
+G4Material* shape2_mat = nist->FindOrBuildMaterial("G4_Fe");
+G4ThreeVector pos2 = G4ThreeVector(0, 0, 0);
+
+G4Orb* solidShape2 = new G4Orb("Orb", 0.49*cm);
+G4LogicalVolume* logicShape2 = new G4LogicalVolume(solidShape2,shape2_mat, "Orb");
+
+new G4PVPlacement(0,                       //no rotation
+                  pos2,                    //at position
+                  logicShape2,             //its logical volume
+                  "Orb",                //its name
+                  logicEnv,                //its mother  volume
+                  false,                   //no boolean operation
+                  0,                       //copy number
+                  checkOverlaps);          //overlaps checking
