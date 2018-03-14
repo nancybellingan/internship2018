@@ -1,6 +1,6 @@
 
 
-B1DetectorConstruction::B1DetectorConstruction()
+B1DetectorConstruction::B1DetectorConstruction() 
 : G4VUserDetectorConstruction(),
   fScoringVolume(0)
   fCheckOverlaps(true)
@@ -40,4 +40,24 @@ B5DetectorConstruction::B5DetectorConstruction()
   
   // define commands for this class
   DefineCommands();
+}
+
+
+
+// Example B2a
+G4ThreadLocal 
+G4GlobalMagFieldMessenger* B2aDetectorConstruction::fMagFieldMessenger = 0;
+
+B2aDetectorConstruction::B2aDetectorConstruction()
+:G4VUserDetectorConstruction(), 
+ fNbOfChambers(0),
+ fLogicTarget(NULL), fLogicChamber(NULL), 
+ fTargetMaterial(NULL), fChamberMaterial(NULL), 
+ fStepLimit(NULL),
+ fCheckOverlaps(true)
+{
+  fMessenger = new B2aDetectorMessenger(this);
+
+  fNbOfChambers = 5;
+  fLogicChamber = new G4LogicalVolume*[fNbOfChambers];
 }
