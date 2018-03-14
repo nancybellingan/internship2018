@@ -1,0 +1,43 @@
+
+
+B1DetectorConstruction::B1DetectorConstruction()
+: G4VUserDetectorConstruction(),
+  fScoringVolume(0)
+  fCheckOverlaps(true)
+{
+  DefineMaterials();
+}
+
+
+
+Other elements that can go within this class:
+
+
+
+// from example B4
+B1DetectorConstruction::B1DetectorConstruction()
+: G4VUserDetectorConstruction(),
+   fAbsorberPV(nullptr),
+   fGapPV(nullptr),
+{}
+
+
+
+// from example B5
+B5DetectorConstruction::B5DetectorConstruction()
+: G4VUserDetectorConstruction(), 
+  fMessenger(nullptr),
+  fHodoscope1Logical(nullptr), fHodoscope2Logical(nullptr),
+  fWirePlane1Logical(nullptr), fWirePlane2Logical(nullptr),
+  fCellLogical(nullptr), fHadCalScintiLogical(nullptr),
+  fMagneticLogical(nullptr),
+  fVisAttributes(),
+  fArmAngle(30.*deg), fArmRotation(nullptr), fSecondArmPhys(nullptr)
+
+{
+  fArmRotation = new G4RotationMatrix();
+  fArmRotation->rotateY(fArmAngle);
+  
+  // define commands for this class
+  DefineCommands();
+}
