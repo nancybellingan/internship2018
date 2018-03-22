@@ -1,2 +1,24 @@
 step 1: take the B1 example
+
 step 2: change shape 1 to phantom 
+   // shape of the phantom is a box
+  G4Box* phantom1 =
+    new G4Box("Phantom",
+    0.5*phantom1XY, 0.5*phantom1XY, 0.5*phantom1Z);
+                      
+  G4LogicalVolume* logicphantom1 =
+    new G4LogicalVolume(phantom1,         //its solid
+                        phantom1_mat,          //its material
+                        "Phantom");           //its name
+               
+  new G4PVPlacement(0,                       //no rotation
+                    pos1,                    //at position
+                    logicphantom1,             //its logical volume
+                    "Phantom",                //its name
+                    logicEnv,                //its mother  volume
+                    false,                   //no boolean operation
+                    0,                       //copy number
+                    checkOverlaps);          //overlaps checking
+                    
+step 3:create materials: LiF6 and glue, etc
+
